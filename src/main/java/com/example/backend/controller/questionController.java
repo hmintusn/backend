@@ -1,9 +1,14 @@
 package com.example.backend.controller;
 
+import com.example.backend.helper.ExcelHelper;
 import com.example.backend.model.Question;
+import com.example.backend.service.ExcelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.backend.service.QuestionService;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -11,6 +16,9 @@ import java.util.List;
 public class questionController {
     @Autowired
     QuestionService questionService;
+
+    @Autowired
+    ExcelService excelService;
 
     @GetMapping
     public List<Question> getAllQuestions(){
@@ -27,6 +35,24 @@ public class questionController {
     @PostMapping("/saveAll")
     public List<Question> saveAllQuestions(@RequestBody List<Question> questions){
         return questionService.saveAllQuestions(questions);
+    }
+
+    //upload questions from excel file
+    @PostMapping("/excel/upload")
+    public ResponseEntity<?> uploadQuestionsData(@RequestParam("file") MultipartFile file) {
+        String message = "";
+        if (ExcelHelper.hasExcelFormat(file)) {
+            try {
+                excelService.saveQuestionsToDatabase(file);
+                message = "Uploaded the file successfully: " + file.getOriginalFilename();
+                return ResponseEntity.status(200).body(message);
+            } catch (Exception e) {
+                message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+                return ResponseEntity.status(500).body(message);
+            }
+        }
+        message = "Please upload an excel file!";
+        return ResponseEntity.status(400).body(message);
     }
 
     //update question
