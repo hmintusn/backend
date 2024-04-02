@@ -17,13 +17,13 @@ public class questionController {
         return questionService.getAllQuestions();
     }
 
-    //  add new question
+    //add new question
     @PostMapping("/save")
     public Question saveQuestion(@RequestBody Question question){
         return questionService.saveQuestion(question);
     }
 
-    //  add list of questions
+    //add list of questions
     @PostMapping("/saveAll")
     public List<Question> saveAllQuestions(@RequestBody List<Question> questions){
         return questionService.saveAllQuestions(questions);
