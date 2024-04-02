@@ -38,7 +38,7 @@ public class User {
 
     @Column(name = "full_name")
     private String fullName;
-    private boolean isAdmin;
+    private Boolean isAdmin;
 
     public User(String username, String password, String fullName, String email, boolean isAdmin) {
         this.username = username;

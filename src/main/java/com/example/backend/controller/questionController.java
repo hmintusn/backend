@@ -22,4 +22,19 @@ public class questionController {
     public Question saveQuestion(@RequestBody Question question){
         return questionService.saveQuestion(question);
     }
+
+    @PostMapping("/saveAll")
+    public List<Question> saveAllQuestions(@RequestBody List<Question> questions){
+        return questionService.saveAllQuestions(questions);
+    }
+
+    @PostMapping("/update")
+    public Question updateQuestion(@RequestBody Question question){
+        return questionService.updateQuestion(question);
+    }
+
+    @DeleteMapping("/delete/{qid}")
+    public String deleteQuestion(@PathVariable int qid){
+        return questionService.deleteQuestion(qid);
+    }
 }
