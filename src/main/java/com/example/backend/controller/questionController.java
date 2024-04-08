@@ -21,10 +21,16 @@ public class questionController {
     ExcelService excelService;
 
     @GetMapping
-    public List<Question> getAllQuestions(){
-        return questionService.getAllQuestions();
+    //get all questions
+    public ResponseEntity<?> getAllQuestions(){
+        return ResponseEntity.ok(questionService.getAllQuestions());
     }
 
+    //get question by id
+    @GetMapping("/{qid}")
+    public ResponseEntity<?> getQuestionById(@PathVariable int qid){
+        return ResponseEntity.ok(questionService.getQuestionById(qid));
+    }
     //add new question
     @PostMapping("/save")
     public ResponseEntity<?> saveQuestion(@RequestBody Question question){
@@ -35,6 +41,23 @@ public class questionController {
     @PostMapping("/saveAll")
     public ResponseEntity<?> saveAllQuestions(@RequestBody List<Question> questions){
         return ResponseEntity.ok(questionService.saveAllQuestions(questions));
+    }
+
+    //update question
+    @PutMapping("/update")
+    public ResponseEntity<?> updateQuestion(@RequestBody Question question){
+        return ResponseEntity.ok(questionService.updateQuestion(question));
+    }
+
+    //delete question by id
+    @DeleteMapping("/delete/{qid}")
+    public ResponseEntity<?> deleteQuestion(@PathVariable int qid){
+        return ResponseEntity.ok(questionService.deleteQuestion(qid));
+    }
+
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<?> deleteAllQuestions(){
+        return ResponseEntity.ok(questionService.deleteAllQuestions());
     }
 
     //upload questions from Excel file
@@ -55,15 +78,4 @@ public class questionController {
         return ResponseEntity.status(400).body(message);
     }
 
-    //update question
-    @PutMapping("/update")
-    public ResponseEntity<?> updateQuestion(@RequestBody Question question){
-        return ResponseEntity.ok(questionService.updateQuestion(question));
-    }
-
-    //delete question by id
-    @DeleteMapping("/delete/{qid}")
-    public ResponseEntity<?> deleteQuestion(@PathVariable int qid){
-        return ResponseEntity.ok(questionService.deleteQuestion(qid));
-    }
 }

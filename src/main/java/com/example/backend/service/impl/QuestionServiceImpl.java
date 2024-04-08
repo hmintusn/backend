@@ -13,6 +13,14 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     QuestionRepository questionRepository;
 
+    public List<Question> getAllQuestions() {
+        return questionRepository.findAll();
+    }
+
+    public Question getQuestionById(int qid) {
+        return questionRepository.findById(qid).orElse(null);
+    }
+
     public Question saveQuestion(Question question) {
         return questionRepository.save(question);
     }
@@ -21,13 +29,14 @@ public class QuestionServiceImpl implements QuestionService {
         return questionRepository.saveAll(questions);
     }
 
-    public List<Question> getAllQuestions() {
-        return questionRepository.findAll();
-    }
-
     public String deleteQuestion(int qid){
         questionRepository.deleteById(qid);
         return "Question removed !! " + qid;
+    }
+
+    public String deleteAllQuestions(){
+        questionRepository.deleteAll();
+        return "All questions removed !!";
     }
 
     public Question updateQuestion(Question question){
