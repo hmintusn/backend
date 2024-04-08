@@ -27,17 +27,17 @@ public class questionController {
 
     //add new question
     @PostMapping("/save")
-    public Question saveQuestion(@RequestBody Question question){
-        return questionService.saveQuestion(question);
+    public ResponseEntity<?> saveQuestion(@RequestBody Question question){
+        return ResponseEntity.ok(questionService.saveQuestion(question));
     }
 
     //add list of questions
     @PostMapping("/saveAll")
-    public List<Question> saveAllQuestions(@RequestBody List<Question> questions){
-        return questionService.saveAllQuestions(questions);
+    public ResponseEntity<?> saveAllQuestions(@RequestBody List<Question> questions){
+        return ResponseEntity.ok(questionService.saveAllQuestions(questions));
     }
 
-    //upload questions from excel file
+    //upload questions from Excel file
     @PostMapping("/excel/upload")
     public ResponseEntity<?> uploadQuestionsData(@RequestParam("file") MultipartFile file) {
         String message = "";
@@ -57,13 +57,13 @@ public class questionController {
 
     //update question
     @PutMapping("/update")
-    public Question updateQuestionPut(@RequestBody Question question){
-        return questionService.updateQuestion(question);
+    public ResponseEntity<?> updateQuestion(@RequestBody Question question){
+        return ResponseEntity.ok(questionService.updateQuestion(question));
     }
 
     //delete question by id
     @DeleteMapping("/delete/{qid}")
-    public String deleteQuestion(@PathVariable int qid){
-        return questionService.deleteQuestion(qid);
+    public ResponseEntity<?> deleteQuestion(@PathVariable int qid){
+        return ResponseEntity.ok(questionService.deleteQuestion(qid));
     }
 }

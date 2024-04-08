@@ -20,6 +20,7 @@ public class QuestionServiceImpl implements QuestionService {
     public List<Question> saveAllQuestions(List<Question> questions) {
         return questionRepository.saveAll(questions);
     }
+
     public List<Question> getAllQuestions() {
         return questionRepository.findAll();
     }
