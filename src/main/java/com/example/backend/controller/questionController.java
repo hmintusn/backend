@@ -61,7 +61,9 @@ public class questionController {
     }
 
     //upload questions from Excel file
-    @PostMapping("/excel/upload")
+    @PostMapping(
+            path ="/excel/upload",
+            consumes = {"multipart/form-data"})
     public ResponseEntity<?> uploadQuestionsData(@RequestParam("file") MultipartFile file) {
         String message = "";
         if (ExcelHelper.hasExcelFormat(file)) {
@@ -77,5 +79,4 @@ public class questionController {
         message = "Please upload an excel file!";
         return ResponseEntity.status(400).body(message);
     }
-
 }
