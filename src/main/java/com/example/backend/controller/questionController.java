@@ -3,10 +3,11 @@ package com.example.backend.controller;
 import com.example.backend.helper.ExcelHelper;
 import com.example.backend.model.Question;
 import com.example.backend.service.ExcelService;
+import com.example.backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.backend.service.QuestionService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -63,8 +64,9 @@ public class questionController {
     //upload questions from Excel file
     @PostMapping(
             path ="/excel/upload",
-            consumes = {"multipart/form-data"})
-    public ResponseEntity<?> uploadQuestionsData(@RequestParam("file") MultipartFile file) {
+//            consumes = {"multipart/form-data"}
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> uploadQuestionsData(@RequestPart MultipartFile file) {
         String message = "";
         if (ExcelHelper.hasExcelFormat(file)) {
             try {
